@@ -1,0 +1,63 @@
+<table id="compound-interest-calculator" border="1" cellpadding="10">
+    <tr>
+        <td><label for="principal">Anfangskapital (CHF):</label></td>
+        <td><input type="number" id="principal" value="0"></td>
+    </tr>
+    <tr>
+        <td><label for="rate">Monatliche Sparrate (CHF):</label></td>
+        <td><input type="number" id="rate" value="0"></td>
+    </tr>
+    <tr>
+        <td><label for="years">Spardauer / Anlagezeitraum (Jahre):</label></td>
+        <td><input type="number" id="years" value="0"></td>
+    </tr>
+    <tr>
+        <td><label for="interest">Jährlicher Zinssatz (%):</label></td>
+        <td><input type="number" id="interest" value="0"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button onclick="calculateCompoundInterest()">Berechnen</button>
+            <p id="result"></p>
+        </td>
+    </tr>
+</table>
+
+<script>
+function calculateCompoundInterest() {
+    var principal = parseFloat(document.getElementById("principal").value);
+    var rate = parseFloat(document.getElementById("rate").value);
+    var years = parseFloat(document.getElementById("years").value);
+    var interest = parseFloat(document.getElementById("interest").value);
+
+    var finalAmount = principal * Math.pow((1 + interest / 100), years);
+    
+    for(var i = 0; i < years; i++) {
+        finalAmount += rate * 12 * Math.pow((1 + interest / 100), years - i - 1);
+    }
+
+    document.getElementById("result").innerHTML = "Endkapital: CHF" + finalAmount.toFixed(2);
+}
+</script>
+
+<style>
+#compound-interest-calculator {
+    max-width: 500px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-weight: bold;
+}
+</style>
